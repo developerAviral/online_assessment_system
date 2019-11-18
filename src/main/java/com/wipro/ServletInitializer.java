@@ -1,4 +1,4 @@
-package com.wipro.assessmentsystem;
+package com.wipro;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

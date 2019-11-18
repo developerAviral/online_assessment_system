@@ -23,7 +23,7 @@ public class SecurityServiceImpl implements SecurityService {
 	
 	@Override
 	public String findLoggedInUsername() {
-		Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
+		Object userDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		if(userDetails instanceof UserDetails) {
 			return ((UserDetails)userDetails).getUsername();
@@ -33,14 +33,14 @@ public class SecurityServiceImpl implements SecurityService {
 	}
 
 	@Override
-	public void login(String username, String password) {
-		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+	public void login(String emailId, String password) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(emailId);
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 		authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		
 		if(usernamePasswordAuthenticationToken.isAuthenticated()) {
 			SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-			logger.debug(String.format("Auto login %s successfully!", username));
+			System.out.println(String.format("Auto login %s successfully!", emailId));
 		}
 		
 	}

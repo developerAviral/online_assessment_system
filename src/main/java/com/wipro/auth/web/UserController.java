@@ -21,14 +21,14 @@ public class UserController {
 	@Autowired
 	private SecurityService securityService;
 	
-	 @GetMapping("/registration")
+	 @GetMapping("/register.html")
 	    public String registration(Model model) {
 	        model.addAttribute("userForm", new User());
 
 	        return "registration";
 	    }
 
-	    @PostMapping("/registration")
+	    @PostMapping("/registeration")
 	    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
 	      //  userValidator.validate(userForm, bindingResult);
 
@@ -38,9 +38,9 @@ public class UserController {
 
 	        userService.save(userForm);
 
-	        //securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+	        //securityService.login(userForm.getEmailId(), userForm.getPassword());
 
-	        return "redirect:/welcome";
+	        return "redirect:/login";
 	    }
 
 	    @GetMapping("/login")
@@ -54,9 +54,14 @@ public class UserController {
 	        return "login";
 	    }
 
-	    @GetMapping({"/", "/welcome"})
-	    public String welcome(Model model) {
-	        return "welcome";
+	    @GetMapping({"/" , "/user/welcome"})
+	    public String welcomeUser(Model model) {
+	        return "user/welcome";
+	    }
+	    
+	    @GetMapping({"/admin/welcome"})
+	    public String welcomeAdmin(Model model) {
+	        return "admin/welcome";
 	    }
 
 }
