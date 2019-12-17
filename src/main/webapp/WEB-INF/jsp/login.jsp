@@ -22,14 +22,18 @@
 
         <div class="form-group ${error != null ? 'has-error' : ''}">
             <span>${message}</span>
-            <input name="emailId" type="text" class="form-control" placeholder="Email"
-                   autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
+            <label for="emailId">Email ID</label>
+            <input id="email" name="emailId" type="email" class="form-control" placeholder="Email"
+                   autofocus="true" required="required"/>
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" class="form-control" placeholder="Password" required/>
             <span>${error}</span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="${contextPath}/register.html">Create an account</a></h4>
+            <button id="login" class="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
+            
+            <label>New User ?</label>
+            <h4 class="text-center"><a href="${contextPath}/register.html">register here</a></h4>
         </div>
       </form>
     </div>

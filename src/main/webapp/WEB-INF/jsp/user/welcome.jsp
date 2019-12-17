@@ -14,12 +14,17 @@
 </head>
 <body>
   <div class="container">
+  <div id="msg">Select the Test</div>
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
 
-        <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+		<a href="${contextPath}/user/springAssessment">Spring Assessment</a>	
+		<br>
+		<a href="${contextPath}/user/hibernateAssessment">Hibernate Assessment</a>	
+        <br>
+        <a href="#" onclick="document.forms['logoutForm'].submit()">Logout</a>
     </c:if>
   </div>
   

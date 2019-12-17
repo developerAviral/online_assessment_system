@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.wipro.auth.handler.UserAuthenticationFailureHandler;
 import com.wipro.auth.handler.UserAuthenticationSuccessHandler;
 
 @Configuration
@@ -31,6 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
 	@Autowired
 	private UserAuthenticationSuccessHandler successHandler;
+	
+	@Autowired UserAuthenticationFailureHandler failureHandler;
 
     @Value("${spring.queries.users-query}")
     private String usersQuery;
@@ -64,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/resources/**", "/register.html").permitAll()
+                .antMatchers("/resources/**", "/register.html","/invaliduser","/invalidpassword","/registerconfirm","/registration").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAuthority("USER")
                 .anyRequest().authenticated()
@@ -72,7 +77,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .successHandler(successHandler)             
+                .successHandler(successHandler)        
+                .failureHandler(failureHandler)
                 .usernameParameter("emailId")
                 .passwordParameter("password")
                 .and()
@@ -83,6 +89,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
         return authenticationManager();
+    }
+    
+    @Bean
+    public AuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
+        impl.setUserDetailsService(userDetailsService());
+        impl.setPasswordEncoder(new BCryptPasswordEncoder());
+        impl.setHideUserNotFoundExceptions(false) ;
+        return impl;
     }
     
 

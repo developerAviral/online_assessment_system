@@ -17,48 +17,51 @@
 <body>
 	    <div class="container">
 
-        <form:form method="POST" modelAttribute="userForm" class="form-signin">
+        <form:form method="POST" modelAttribute="userForm" class="form-signin" action="${contextPath}/registration">
             <h2 class="form-signin-heading">Create your account</h2>
-            <spring:bind path="emailId">
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="text" path="emailId" class="form-control" placeholder="EmailId"
-                                autofocus="true"></form:input>
-                    <form:errors path="emailId"></form:errors>
-                </div>
-            </spring:bind>
-            
+           
+           <label for="firstname">First Name</label>
             <spring:bind path="firstName">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="text" path="firstName" class="form-control" placeholder="First Name"
-                                autofocus="true"></form:input>
+                    <form:input id="firstname" type="text" path="firstName" class="form-control" placeholder="First Name"
+                                autofocus="true"  pattern="[a-zA-Z]{1,}" required="required"></form:input>
                     <form:errors path="firstName"></form:errors>
                 </div>
             </spring:bind>
             
+            <br>
+            
+            <label for="lastname">Last Name</label>
             <spring:bind path="lastName">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="text" path="lastName" class="form-control" placeholder="Last Name"
-                                autofocus="true"></form:input>
+                    <form:input id="lastname" type="text" path="lastName" class="form-control" placeholder="Last Name"
+                                autofocus="true" pattern="[a-zA-Z]{1,}" required="required"></form:input>
                     <form:errors path="lastName"></form:errors>
                 </div>
             </spring:bind>
-
+            
+            <br>
+            
+            <label for="email">Email ID</label>
+            <spring:bind path="emailId">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:input id="email" type="email" path="emailId" class="form-control" placeholder="EmailId"
+                                autofocus="true" required="required"></form:input>
+                    <form:errors path="emailId"></form:errors>
+                </div>
+            </spring:bind>
+			
+			<br>
+			
+			<label for="password">Password</label>
             <spring:bind path="password">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
+                    <form:input id="password" type="password" path="password" class="form-control" pattern=".{8,}" placeholder="Password" required="required"></form:input>
                     <form:errors path="password"></form:errors>
                 </div>
             </spring:bind>
 
-<%--             <spring:bind path="passwordConfirm">
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="password" path="passwordConfirm" class="form-control"
-                                placeholder="Confirm your password"></form:input>
-                    <form:errors path="passwordConfirm"></form:errors>
-                </div>
-            </spring:bind> --%>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+            <button id="register" class="btn btn-lg btn-primary btn-block" type="submit">REGISTER</button>
         </form:form>
 
     </div>
