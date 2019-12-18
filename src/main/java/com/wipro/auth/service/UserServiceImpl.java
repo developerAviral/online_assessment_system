@@ -1,11 +1,13 @@
 package com.wipro.auth.service;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.wipro.auth.model.Role;
 import com.wipro.auth.model.User;
 import com.wipro.auth.repository.RoleRepository;
 import com.wipro.auth.repository.UserRepository;
@@ -23,7 +25,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        List<Role> roles = roleRepository.findAll();
+        roles.remove(0);
+        user.setRoles(new HashSet<>(roles));
         userRepository.save(user);		
 	}
 
