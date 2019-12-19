@@ -25,6 +25,8 @@
 		<br>
 		<a href="${contextPath}/tests/all">View list of all tests taken</a>	
         <%-- <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2> --%>
+                <br>
+        <a href="#" onclick="document.forms['logoutForm'].submit()">Logout</a>
     </c:if>
   </div>
   

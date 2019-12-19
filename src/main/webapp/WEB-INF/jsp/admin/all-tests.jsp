@@ -27,14 +27,16 @@
 				<th>Total Marks</th>
 				<th>Result</th>
 			</tr>
+			<c:set var="count" value="0" scope="page" />
 			<c:forEach var="testListValue" items="${testList}">
+			<c:set var="count" value="${count + 1}" scope="page"/>
 					<tr>
-						<td>${testListValue.testDate}</td>
-						<td>${testListValue.assessmentName}</td>
-						<td>${testListValue.testMarks}</td>
-						<td>${testListValue.emailId}</td>
-						<td>${testListValue.totalMarks}</td>
-						<td>${testListValue.result}</td>
+						<td><span id="testDate${count}">${testListValue.testDate}</span></td>
+						<td><span id="assessment${count}">${testListValue.assessmentName}</span></td>
+						<td><span id="marks${count}">${testListValue.testMarks}</span></td>
+						<td><span id="email${count}">${testListValue.emailId}</span></td>
+						<td><span id="totalMarks${count}">${testListValue.totalMarks}</span></td>
+						<td><span id="result${count}">${testListValue.result}</span></td>
 					</tr>
 			</c:forEach>
 		</table>

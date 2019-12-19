@@ -12,8 +12,7 @@ import javax.persistence.Table;
 public class AssessmentDetails {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator="MySequenceGenerator")
-	@SequenceGenerator(allocationSize=1, schema="myschema",  name="MySequenceGenerator", sequenceName = "mysequence")
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id; 
 	private String testDate;
 	private String assessmentName;
